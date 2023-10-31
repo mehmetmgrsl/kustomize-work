@@ -1,0 +1,12 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-deployment
+spec:
+  template:
+    spec:
+      containers:
+      - name: mywebapp
+        envFrom:
+        - configMapRef:
+            name: mykustom-map

@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-deployment
+spec:
+  template:
+    spec:
+      containers:
+      - name: mywebapp
+        envFrom:
+        - configMapRef:
+            name: mykustom-map
+        resources:
+          limits:
+            cpu: "0.5" # Lower CPU limit to 1000m (1 CPU core)
+            memory: "512Mi" # Lower memory limit to 512 MiB
+          requests:
+            cpu: "0.2" # Lower CPU request to 200m (0.2 CPU cores)
+            memory: "256Mi" # Lower memory request to 256 MiB
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
